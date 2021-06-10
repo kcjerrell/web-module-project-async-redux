@@ -3,7 +3,8 @@ import act from '../actions/colrActions'
 const initialState = {
 	selectedScheme: null,
 	schemeList: [],
-	isFetching: false
+	isFetching: false,
+	schemeViewMode: 'none'
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,13 +18,22 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				isFetching: false,
-				selectedScheme: action.payload
-			}
+				selectedScheme: action.payload,
+				schemeViewMode: 'single'
+			};
+		case act.FETCH_LIST_SUCCESS:
+			return {
+				...state,
+				isFetching: false,
+				selectedScheme: null,
+				schemeList: action.payload,
+				schemeViewMode: 'list'
+			};
 		case act.FETCH_SCHEME_FAIL:
 			return {
 				...state,
 				isFetching: false
-			}
+			};
 		default:
 			return state;
 	}

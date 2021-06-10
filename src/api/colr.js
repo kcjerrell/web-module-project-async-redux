@@ -41,7 +41,14 @@ const addQuery = (url, params) => {
  */
 export const getRandomSchemes = (count = 1, minSize = 4) => {
 	const url = buildUrl('schemes', 'random', count).query({ scheme_size: `>${minSize}` });
-	return axios.get(url).then(res => res.data.schemes);
+	return axios.get(url).then(res => {
+		return res.data.schemes.map(scheme =>  concatTagNames(scheme));
+	});
+}
+
+const concatTagNames = scheme => {
+	const tags = scheme.tags.map(t => t.name).join(' ');
+	return { ...scheme, tagsName: tags };
 }
 
 export const getColorInfo = (color) => {
@@ -51,7 +58,9 @@ export const getColorInfo = (color) => {
 	const url = buildUrl('color', color);
 	return axios.get(url).then(res => {
 		const colorInfo = res.data.colors[0];
-		cache.addColor(color, colorInfo);
-		return colorInfo;
+
+		// I need to add an appropriate foreground color to each color object
+		// and this is the best place to inject it
+		return cache.addColor(color, colorInfo);
 	});
 }
