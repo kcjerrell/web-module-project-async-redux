@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  max-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .App-logo {
@@ -22,10 +29,17 @@
   font-size: calc(10px + 2vmin);
   color: white;
   padding: .5em;
+  flex-shrink: 0;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.App-content {
+  position: relative;
+  height: 100%;
+  flex-grow: 1;
 }
 
 @keyframes App-logo-spin {

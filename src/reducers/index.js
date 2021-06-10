@@ -4,8 +4,8 @@ import { combineReducers } from 'redux';
 
 // So I need to be specific about what this project is going to do so I can design the state
 // And what it is going to do is
-// ... let you create/edit/customize color palettes
-// and browse top/random palettes from colour lovers
+// ... let you create/edit/customize color schemes
+// and browse top/random schemes from colour lovers
 // using color names and info from colour lovers api
 
 // and as a stretch goal (or maybe this should just be my primary goal?):
@@ -16,8 +16,8 @@ import { combineReducers } from 'redux';
 // since combining multiple reducers makes a compound state object, I'm going to lead with
 // that shape in mind, so I can add new things as I progress
 
-// perhaps palette and theme should be distinct.....
-// palette is just a set of colors
+// perhaps scheme and theme should be distinct.....
+// scheme is just a set of colors
 // theme probably includes that (based on material design) would include
 // primaryColor + shades + onPrimary
 // secondaryColor + shades + onSecondary
@@ -26,7 +26,7 @@ import { combineReducers } from 'redux';
 // error + onError
 
 // getting too complicated. perhaps I'll start by just making a component that loads a random
-// palette from colour lovers
+// scheme from colour lovers
 
 // Not to be used for initialState, just an example of the expected app state shape
 /*
@@ -39,7 +39,7 @@ const dummyState = {
 	},
 	// state consumed by the "colour lovers api explorer" aspect
 	clExplorer: {
-		selectedItem: { }, 						// a color or color palette object provided by the api perhaps
+		selectedItem: { }, 						// a color or color scheme object provided by the api perhaps
 																	// only having an 'id' property initially, the rest to be loaded upon selection
 		itemList: [ ], 								// a list of items (possibly only referenced by an ID) that can be selected
 	},

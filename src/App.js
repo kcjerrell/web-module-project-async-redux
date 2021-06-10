@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Palette from './components/Palette';
+import Scheme from './components/Scheme';
 import { connect } from 'react-redux';
 
 import colrActions from './actions/colrActions';
 
 const App = props => {
-  const { palette, dispatch } = props;
+  const { scheme, dispatch } = props;
 
   return (
     <div className="App">
@@ -16,9 +16,9 @@ const App = props => {
 
       <div className="App-content">
 
-        {props.palette && <Palette palette={palette}/>}
+        {props.scheme && <Scheme scheme={scheme} mode="background"/>}
 
-        <button onClick={e => dispatch(colrActions.fetchPalette())} >Get a random palette</button>
+        <button onClick={e => dispatch(colrActions.fetchScheme())} >Get a random scheme</button>
 
       </div>
     </div>
@@ -27,7 +27,7 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    palette: state.colr.selectedScheme,
+    scheme: state.colr.selectedScheme,
   }
 }
 

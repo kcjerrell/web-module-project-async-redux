@@ -8,18 +8,18 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case act.FETCH_PALETTE_START:
+		case act.FETCH_SCHEME_START:
 			return {
 				...state,
 				isFetching: true
 			};
-		case act.FETCH_PALETTE_SUCCESS:
+		case act.FETCH_SCHEME_SUCCESS:
 			return {
 				...state,
 				isFetching: false,
 				selectedScheme: action.payload
 			}
-		case act.FETCH_PALETTE_FAIL:
+		case act.FETCH_SCHEME_FAIL:
 			return {
 				...state,
 				isFetching: false

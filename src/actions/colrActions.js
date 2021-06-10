@@ -1,44 +1,43 @@
 import { getRandomSchemes } from "../api/colr";
 
-export const FETCH_PALETTE_START = "FETCH_PALETTE_START";
-export const FETCH_PALETTE_SUCCESS = "FETCH_PALETTE_SUCCESS";
-export const FETCH_PALETTE_FAIL = "FETCH_PALETTE_FAIL";
+export const FETCH_SCHEME_START = "FETCH_SCHEME_START";
+export const FETCH_SCHEME_SUCCESS = "FETCH_SCHEME_SUCCESS";
+export const FETCH_SCHEME_FAIL = "FETCH_SCHEME_FAIL";
 
-export const fetchPaletteStart = () => {
-	return { type: FETCH_PALETTE_START };
+export const fetchSchemeStart = () => {
+	return { type: FETCH_SCHEME_START };
 }
 
-export const fetchPaletteSuccess = (data) => {
-	return { type: FETCH_PALETTE_SUCCESS, payload: data };
+export const fetchSchemeSuccess = (data) => {
+	return { type: FETCH_SCHEME_SUCCESS, payload: data };
 }
 
-export const fetchPaletteFail = (data) => {
-	return { type: FETCH_PALETTE_FAIL, payload: data };
+export const fetchSchemeFail = (data) => {
+	return { type: FETCH_SCHEME_FAIL, payload: data };
 }
 
-export const fetchPalette = () => {
+export const fetchScheme = () => {
 	return async dispatch => {
-		dispatch(fetchPaletteStart());
+		dispatch(fetchSchemeStart());
 
 		try {
-			const res = await getRandomSchemes(1);
-			const scheme = res.data.schemes[0];
-			dispatch(fetchPaletteSuccess(scheme));
+			const schemes = await getRandomSchemes(1);
+			dispatch(fetchSchemeSuccess(schemes[0]));
 		}
 
 		catch (error) {
 			console.log(error);
-			dispatch(fetchPaletteFail(error));
+			dispatch(fetchSchemeFail(error));
 		}
 	};
 };
 
 
 const colr = {
-	FETCH_PALETTE_START, fetchPaletteStart,
-	FETCH_PALETTE_SUCCESS, fetchPaletteSuccess,
-	FETCH_PALETTE_FAIL, fetchPaletteFail,
-	fetchPalette,
+	FETCH_SCHEME_START, fetchSchemeStart,
+	FETCH_SCHEME_SUCCESS, fetchSchemeSuccess,
+	FETCH_SCHEME_FAIL, fetchSchemeFail,
+	fetchScheme,
 };
 
 export default colr;

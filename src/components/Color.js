@@ -11,7 +11,7 @@ const Color = props => {
 	}
 
 	return (
-		<div style={style}>
+		<div style={style} className={props.className}>
 			<h3>#{color}</h3>
 
 			{colorInfo &&
