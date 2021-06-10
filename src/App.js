@@ -3,16 +3,7 @@ import './App.css';
 import Palette from './components/Palette';
 import { connect } from 'react-redux';
 
-import designerActions from './actions/designerActions';
-import collovActions from './actions/collovActions';
-
-import apiAccess from './apiAccess';
-apiAccess.create({
-  name: 'collov',
-  url: 'http://www.colourlovers.com/api/',
-  ignore: ['/palette/random'],
-  queryAll: {format: 'json'}
-});
+import colrActions from './actions/colrActions';
 
 const App = props => {
   const { palette, dispatch } = props;
@@ -25,9 +16,9 @@ const App = props => {
 
       <div className="App-content">
 
-        {props.palette && <Palette />}
+        {props.palette && <Palette palette={palette}/>}
 
-        <button onClick={e => dispatch(collovActions.getRandomPalette())} >Get a random palette</button>
+        <button onClick={e => dispatch(colrActions.fetchPalette())} >Get a random palette</button>
 
       </div>
     </div>
@@ -36,7 +27,7 @@ const App = props => {
 
 const mapStateToProps = state => {
   return {
-    palette: state.collov.selectedItem,
+    palette: state.colr.selectedScheme,
   }
 }
 

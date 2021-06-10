@@ -1,5 +1,5 @@
 import designer from './designerReducer';
-import collov from './collovReducer';
+import colr from './colrReducer';
 import { combineReducers } from 'redux';
 
 // So I need to be specific about what this project is going to do so I can design the state
@@ -47,8 +47,8 @@ const dummyState = {
 */
 
 const reducers = {
-	designer: designer,
-	collov: collov,
+	designer,
+	colr,
 }
 
 const rootReducer = combineReducers(reducers);

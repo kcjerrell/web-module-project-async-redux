@@ -19,7 +19,7 @@ const Palette = props => {
 	const { palette } = props;
 	const { colors } = palette;
 
-	const colorDivs = colors.map(col => <Color color={col} id={col} />);
+	const colorDivs = colors.map((col, i) => <Color color={col} key={i} />);
 
 	return (
 		<BgPalette>
