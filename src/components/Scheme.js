@@ -31,7 +31,7 @@ const itemScheme = styled.div`
 	/* width: 12em; */
 	min-width: 10em;
 	height: 12em;
-	padding: .5em;
+	padding: .2em;
 	margin: 1em;
 
 	background-color: #bbbbbb;
@@ -46,22 +46,41 @@ const itemScheme = styled.div`
 
 	flex-grow: 1;
 
+	position: relative;
+
+	.label {
+		/* position: absolute;
+		bottom: 0; */
+	}
+
 	.color-container {
 		display: flex;
 		flex-direction: row;
 		/* justify-content: space-evenly; */
 		align-items: stretch;
+		background-color: ${props => props.firstColor};
 
 		flex-grow: 1;
 
-		position: relative;
 
 		.item-scheme-color {
 			flex-grow: 1;
 			width: 4em;
+			display: flex;
+			align-items: center;
+
 
 			h3 {
 				display: none;
+				margin: auto;
+				writing-mode: vertical-rl;
+				text-orientation: mixed;
+			}
+		}
+
+		.item-scheme-color:hover {
+			h3 {
+				display: block;
 			}
 		}
 	}
@@ -77,6 +96,7 @@ const itemScheme = styled.div`
 const Scheme = props => {
 	const { scheme, mode } = props;
 	const { colors } = scheme;
+	const firstColor = colors[0];
 
 	const isBackground = mode === "background";
 	const Container = isBackground ? BgScheme : itemScheme;
@@ -93,7 +113,7 @@ const Scheme = props => {
 			}
 
 			{!isBackground &&
-				<Container>
+				<Container firstColor={firstColor}>
 					<div className="color-container">
 						{colorDivs}
 					</div>

@@ -28,12 +28,6 @@ const Color = props => {
 	return (
 		<div style={style} className={props.className}>
 			<h3>#{color}</h3>
-
-			{colorInfo &&
-				<>
-					<h4>{colorInfo.title}</h4>
-				</>
-			}
 		</div>
 	)
 }

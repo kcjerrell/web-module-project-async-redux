@@ -42,7 +42,7 @@ export const listSchemes = () => {
 		dispatch(fetchSchemeStart());
 
 		try {
-			const schemes = await getRandomSchemes(25);
+			const schemes = await getRandomSchemes(50);
 			dispatch(fetchListSuccess(schemes));
 		}
 
