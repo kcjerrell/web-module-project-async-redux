@@ -17,17 +17,18 @@ const Color = props => {
 			}
 		}
 
-		fetchColorInfo();
+		//fetchColorInfo();
 	})
 
 	const style = {
-		backgroundColor: `#${color}`,
-		color: colorInfo ? colorInfo.onColor : 'inherit',
+		backgroundColor: color.hex,
+		// color: color.onColor,
+		color: 'black',
 	}
 
 	return (
 		<div style={style} className={props.className}>
-			<h3>#{color}</h3>
+			<h3>{color.hex}</h3>
 		</div>
 	)
 }

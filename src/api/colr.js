@@ -1,4 +1,5 @@
 import axios from "axios"
+import Scheme from "../models/Scheme";
 import cache from './ColorCache';
 
 const apiUrl = 'https://www.colr.org/json/';
@@ -42,13 +43,8 @@ const addQuery = (url, params) => {
 export const getRandomSchemes = (count = 1, minSize = 4) => {
 	const url = buildUrl('schemes', 'random', count).query({ scheme_size: `>${minSize}` });
 	return axios.get(url).then(res => {
-		return res.data.schemes.map(scheme =>  concatTagNames(scheme));
+		return res.data.schemes.map(scheme => new Scheme(scheme));
 	});
-}
-
-const concatTagNames = scheme => {
-	const tags = scheme.tags.map(t => t.name).join(' ');
-	return { ...scheme, tagsName: tags };
 }
 
 export const getColorInfo = (color) => {
