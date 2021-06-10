@@ -1,16 +1,23 @@
 import axios from "axios"
+import cache from './ColorCache';
 
-// const sample = {
-// 	"timestamp": 1111913468,
-// 	"colors": ["805953", "8c5e55"],
-// 	"id": "2107",
-// 	"tags": [{
-// 		"id": "2843",
-// 		"name": "natures"
-// 	}, {
-// 		"id": "3215", "name": "essence"
-// 	}]
-// }
+const apiUrl = 'https://www.colr.org/json/';
+
+const buildUrl = (...parts) => {
+	const endPoint = parts.join('/');
+	const url = `${apiUrl}${endPoint}`;
+
+	// This is probably stupid
+	Object.getPrototypeOf(url).query = params => addQuery(url, params);
+	return url;
+}
+
+const addQuery = (url, params) => {
+	const kvs = Object.keys(params).map(k => `${k}=${params[k]}`);
+	const query = kvs.join('&');
+
+	return [url, query].join('?');
+}
 
 /**
  * A descriptive tag applied to a scheme or color
@@ -33,5 +40,18 @@ import axios from "axios"
  * @returns {Scheme[]}
  */
 export const getRandomSchemes = (count = 1, minSize = 4) => {
-	return axios.get(`https://www.colr.org/json/schemes/random/${count}?scheme_size=>${minSize}`).then(res => res.data.schemes);
+	const url = buildUrl('schemes', 'random', count).query({ scheme_size: `>${minSize}` });
+	return axios.get(url).then(res => res.data.schemes);
+}
+
+export const getColorInfo = (color) => {
+	if (cache.hasColor(color))
+		return Promise.resolve(cache.getColor(color));
+
+	const url = buildUrl('color', color);
+	return axios.get(url).then(res => {
+		const colorInfo = res.data.colors[0];
+		cache.addColor(color, colorInfo);
+		return colorInfo;
+	});
 }

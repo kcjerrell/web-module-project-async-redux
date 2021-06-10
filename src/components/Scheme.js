@@ -20,7 +20,6 @@ const BgScheme = styled.div`
 	z-index: -100;
 
 	.bg-scheme-color {
-		border: 5px purple dotted;
 		flex-grow: 1;
 	}
 `;
