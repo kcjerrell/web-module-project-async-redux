@@ -58,9 +58,8 @@ export const getColorInfo = (color) => {
 	const url = buildUrl('color', color);
 	return axios.get(url).then(res => {
 		const colorInfo = res.data.colors[0];
+		cache.addColor(color, colorInfo);
 
-		// I need to add an appropriate foreground color to each color object
-		// and this is the best place to inject it
-		return cache.addColor(color, colorInfo);
+		return colorInfo;
 	});
 }

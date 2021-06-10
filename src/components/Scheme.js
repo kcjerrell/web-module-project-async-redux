@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { getOnColor } from '../helpers';
 import Color from './Color';
 
 const BgScheme = styled.div`
@@ -31,12 +32,12 @@ const itemScheme = styled.div`
 	/* width: 12em; */
 	min-width: 10em;
 	height: 12em;
-	padding: .2em;
+	padding: 0.2em;
 	margin: 1em;
 
 	background-color: #bbbbbb;
-	border: 1px solid #777777;
-	box-shadow: 0px 0px 5px 1px #444444;
+	/* border: 2px solid #00000044; */
+	box-shadow: 0px 0px 5px 0px #cccccc88;
 	border-radius: 4px;
 
 	display: flex;
@@ -49,8 +50,16 @@ const itemScheme = styled.div`
 	position: relative;
 
 	.label {
-		/* position: absolute;
-		bottom: 0; */
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		margin: 1em;
+		padding: .5em;
+		border-radius: 3px 10px 3px 10px;
+		color: white;
+		text-shadow: 1px 1px 4px black;
+		box-shadow: 1px 1px 5px 0px #00000088;
+		border: 3px solid #00000044;
 	}
 
 	.color-container {
@@ -58,10 +67,8 @@ const itemScheme = styled.div`
 		flex-direction: row;
 		/* justify-content: space-evenly; */
 		align-items: stretch;
-		background-color: ${props => props.firstColor};
 
 		flex-grow: 1;
-
 
 		.item-scheme-color {
 			flex-grow: 1;
@@ -69,12 +76,12 @@ const itemScheme = styled.div`
 			display: flex;
 			align-items: center;
 
-
 			h3 {
 				display: none;
 				margin: auto;
 				writing-mode: vertical-rl;
 				text-orientation: mixed;
+				opacity: .5;
 			}
 		}
 
@@ -113,11 +120,14 @@ const Scheme = props => {
 			}
 
 			{!isBackground &&
-				<Container firstColor={firstColor}>
+				<Container>
 					<div className="color-container">
 						{colorDivs}
 					</div>
-					<span className="label">{scheme.tagsName}</span>
+					<span className="label"
+						style={{ backgroundColor: `#${firstColor}`}}>
+						{scheme.tagsName}
+					</span>
 				</Container>
 			}
 		</>
