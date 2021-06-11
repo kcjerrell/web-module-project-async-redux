@@ -43,7 +43,7 @@ const addQuery = (url, params) => {
 export const getRandomSchemes = (count = 1, minSize = 4) => {
 	const url = buildUrl('schemes', 'random', count).query({ scheme_size: `>${minSize}` });
 	return axios.get(url).then(res => {
-		return res.data.schemes.map(scheme => new Scheme(scheme));
+		return res.data.schemes.filter(scheme => scheme.colors.length >= minSize).map(scheme => new Scheme(scheme));
 	});
 }
 

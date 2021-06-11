@@ -29,6 +29,10 @@ import Tag from "./Tag";
 // using classes to represent these items instead of just the raw JSON is going to be a lot more useful,
 // cleaner, and 'safer'
 
+// so it seems that it's not uncommon at all for a scheme to be given with a bad color in it.
+// like #a9. #a9 is not a color. although now that I think of it maybe I could interpret it as a shade of gray.
+// ie: #a9a9a9. I'm gonna go with that. nvm. This little rant is on hold until it sends me a color with 5 digits.
+
 
 export default class Scheme {
 	constructor(jsonData) {
