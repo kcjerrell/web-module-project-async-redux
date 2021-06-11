@@ -1,20 +1,14 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { getOnColor } from '../helpers';
-import Color from './Color';
+import SchemeColorItem from './SchemeColorItem';
 
 const BgScheme = styled.div`
-	width: 100%;
-	height: 100%;
-
 	position: absolute;
 
 	left: 0;
 	top: 0;
 	right: 0;
 	bottom: 0;
-
-	z-index: -100;
 
 	display: flex;
 	flex-direction: row;
@@ -29,17 +23,11 @@ const BgScheme = styled.div`
 	}
 `;
 
-const itemScheme = styled.div`
-	/* width: 12em; */
-	min-width: 10em;
-	height: 12em;
-	padding: 0em;
-	margin: 1em;
-
-	background-color: #bbbbbb;
-	/* border: 2px solid #00000044; */
-	/* box-shadow: 0px 0px 5px 0px #cccccc88; */
-	border-radius: 4px;
+const ItemScheme = styled.div`
+	min-width: 12.5em;
+	height: 15em;
+	padding: 0.3em;
+	margin: 1.5em;
 
 	display: flex;
 	flex-direction: column;
@@ -49,28 +37,31 @@ const itemScheme = styled.div`
 	flex-grow: 1;
 
 	position: relative;
+	background-color: #333333;
 
-	svg {
-		width: 100%;
-	}
+	border: 1px solid #aaaaaa;
+	border-radius: 8px;
+	overflow: clip;
+
+	box-shadow: 0px 0px 28px -5px #000000;
+
 
 	.label {
-		background-color: unset;
-		color: unset;
 		position: absolute;
 		bottom: 0;
-		margin: 1em;
-		padding: .5em;
+		margin: 1.5em;
+		padding: .5em 1em;
 		border-radius: 3px 10px 3px 10px;
-		/* text-shadow: 2px 0px 4px currentColor; */
-		/* box-shadow: 1px 1px 5px 0px #00000088; */
 		border: 3px solid #00000044;
+		font-size: 1.2em;
+		font-weight: 500;
+		letter-spacing: .05em;
+		box-shadow: 1px 1px 20px -3px #000000BB;
 	}
 
 	.color-container {
 		display: flex;
 		flex-direction: row;
-		/* justify-content: space-evenly; */
 		align-items: stretch;
 
 		flex-grow: 1;
@@ -84,16 +75,15 @@ const itemScheme = styled.div`
 				display: none;
 				writing-mode: vertical-rl;
 				text-orientation: mixed;
-				opacity: .4;
+				opacity: .25;
 				margin: auto;
 				font-size: 3.5em;
 				font-family: monospace;
+				text-transform: lowercase;
 			}
 		}
 
 		.item-scheme-color:hover {
-			border: 0px solid black !important;
-
 			h3 {
 				display: block;
 			}
@@ -112,16 +102,16 @@ const Scheme = props => {
 	const { scheme, mode } = props;
 	const { colors } = scheme;
 
-	const [state, setState] = useState({ a: 0, b: 0 });
-	const [isLabelOnRight, setIsLabelOnRight] = useState(true);
+	// const [state, setState] = useState({ a: 0, b: 0 });
 
+	const [isLabelOnRight, setIsLabelOnRight] = useState(true);
 	const labelColor = isLabelOnRight ? colors[0] : colors[colors.length - 1];
 
 	if (!labelColor)
 		debugger;
 
 	const isBackground = mode === "background";
-	const Container = isBackground ? BgScheme : itemScheme;
+	const Container = isBackground ? BgScheme : ItemScheme;
 	const childClass = isBackground ? "bg-scheme-color" : "item-scheme-color";
 
 	const childHover = i => {
@@ -134,7 +124,7 @@ const Scheme = props => {
 		return handleMouseEnter;
 	};
 
-	const colorDivs = colors.map((col, i) => <Color color={col} key={i} className={childClass} onMouseEnter={childHover(i)} />);
+	const colorDivs = colors.map((col, i) => <SchemeColorItem color={col} key={i} className={childClass} onMouseEnter={childHover(i)} />);
 
 	// I keep going back on forth on whether I should use inline styles or inject into the styled componenets
 	// the former makes the most sense though, because otherwise it makes a new css class for every single color
@@ -144,6 +134,7 @@ const Scheme = props => {
 		color: labelColor.onColor,
 		right: isLabelOnRight ? 0 : "unset",
 		left: isLabelOnRight ? "unset" : 0,
+		textShadow: `2px 0px 10px ${labelColor.onColor === '#FFFFFF' ? '#00000088' : '#FFFFFF88'}`,
 	};
 
 	const handleKeyDown = e => {
@@ -153,10 +144,10 @@ const Scheme = props => {
 		if (e.button === 0) d = 1;
 		else if (e.button === 2) d = -1;
 
-		if (e.shiftKey)
-			setState({ ...state, a: state.a + d });
-		else
-			setState({ ...state, b: state.b + d });
+		// if (e.shiftKey)
+		// 	setState({ ...state, a: state.a + d });
+		// else
+		// 	setState({ ...state, b: state.b + d });
 	}
 
 	return (
@@ -168,7 +159,7 @@ const Scheme = props => {
 			}
 
 			{!isBackground &&
-				<Container onMouseDown={handleKeyDown} a={state.a} b={state.b}>
+				<Container onMouseDown={handleKeyDown} a={0} b={0}>
 					<div className="color-container">
 						{colorDivs}
 					</div>

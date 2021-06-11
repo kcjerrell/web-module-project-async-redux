@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import Scheme from './components/Scheme';
 import { connect } from 'react-redux';
 
-import colrActions from './actions/colrActions';
+import colrActions from './reducto/colrActions';
 import styled from 'styled-components';
 import { useEffect } from 'react';
 import axios from 'axios';
@@ -24,12 +23,12 @@ const SchemeListContainer = styled.div`
 const App = props => {
   const { scheme, dispatch } = props;
 
-  const testthing = (d) => console.log(d);
+  // const testthing = (d) => console.log(d);
 
-  useEffect(() => {
-    axios.get('http://www.colourlovers.com/api/palettes/random?format=json&jsonCallback=testthing')
-      .then(r => console.log(r));
-  });
+  // useEffect(() => {
+  //   axios.get('http://www.colourlovers.com/api/palettes/random?format=json&jsonCallback=testthing')
+  //     .then(r => console.log(r));
+  // });
 
   return (
     <div className="App">

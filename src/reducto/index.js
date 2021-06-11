@@ -1,4 +1,3 @@
-import designer from './designerReducer';
 import colr from './colrReducer';
 import { combineReducers } from 'redux';
 
@@ -47,7 +46,6 @@ const dummyState = {
 */
 
 const reducers = {
-	designer,
 	colr,
 }
 

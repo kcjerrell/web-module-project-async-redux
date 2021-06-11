@@ -1,4 +1,4 @@
-import act from '../actions/colrActions'
+import act from './colrActions'
 
 const initialState = {
 	selectedScheme: null,

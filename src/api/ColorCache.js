@@ -1,5 +1,8 @@
 const STORAGE_KEY = 'colorCache';
 
+// I'm not sure the colr.org api actually has any useful color information worth caching, or even fetching
+// at all. Also, it doesn't have a rate limit (that I'm aware of) so there's not much of an advantage to
+// caching api requests here anyway. YOU DON'T HAVE TO BE POLITE TO APIs.
 class ColorCache {
 	_cache;
 

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 
 // Project imports
 import App from './App';
-import reducer from './reducers';
+import reducer from './reducto';
 import './index.css';
 
 const store = createStore(reducer, applyMiddleware(thunk));

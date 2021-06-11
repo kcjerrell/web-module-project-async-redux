@@ -20,33 +20,21 @@ const addQuery = (url, params) => {
 	return [url, query].join('?');
 }
 
-/**
- * A descriptive tag applied to a scheme or color
- * @typedef {Object} Tag
- * @property {number} id
- * @property {string} name
- */
-
-/**
- * A collection of colors
- * @typedef {Object} Scheme
- * @property {string[]} colors
- * @property {number} id
- * @property {Tag[]} tags
- */
-
-/**
- *
- * @param {number} count - how many random schemes to fetch
- * @returns {Scheme[]}
- */
+// consider making this async. might be more readable.
 export const getRandomSchemes = (count = 1, minSize = 4) => {
 	const url = buildUrl('schemes', 'random', count).query({ scheme_size: `>${minSize}` });
-	return axios.get(url).then(res => {
-		return res.data.schemes.filter(scheme => scheme.colors.length >= minSize).map(scheme => new Scheme(scheme));
-	});
+
+	return axios.get(url)
+		.then(res => {
+			return res.data.schemes
+				.filter(scheme => scheme.colors.length >= minSize)
+				.map(scheme => new Scheme(scheme));
+		});
 }
 
+// consider rewriting this in a more reacty/reduxy way
+// One where you somehow make the call THROUGH the cache provider instead of making the call on your own
+// then offering it the data.
 export const getColorInfo = (color) => {
 	if (cache.hasColor(color))
 		return Promise.resolve(cache.getColor(color));
