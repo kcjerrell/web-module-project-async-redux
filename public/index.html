@@ -27,6 +27,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Karma&display=swap" rel="stylesheet">
 
   <title>React App</title>
+  <script>function whatever() {
+      console.log('HEY');
+    }</script>
+  <!-- <script>
+    const resolveCallbacks = new Map();
+
+    let clreqid  = 0;
+    const getColourLoversRequestIdC = () => {
+      clreqid += 1;
+      return clreqid;
+    }
+
+    function getColourLoversRequestId(resolve) {
+      const id = getColourLoversRequestIdC();
+      resolveCallbacks.set(id, resolve);
+      console.log('id requested');
+      console.log(resolveCallbacks);
+      return id;
+    }
+
+    function getColourLoversCallback(requestId) {
+      //return data => colourLoversResponseReceived(requestId, data);
+      console.log('callback requested');
+      const resolve = resolveCallbacks.get(requestId);
+      return resolve;
+    }
+
+    function colourLoversResponseReceived(requestId, data) {
+      console.log("colourLoversResponseReceived");
+      const response = { requestId, data };
+      const responseTarget = document.getElementById('cl-response-target');
+
+      if (responseTarget) {
+        const currentValue = responseTarget.value;
+        const responses = JSON.parse(currentValue ? currentValue : "[]");
+        responses.push(response);
+        responseTarget.value = JSON.stringify(responses);
+        responseTarget.form.requestSubmit();
+      }
+
+      else {
+        console.log("Can't find response target!");
+      }
+    }
+  </script> -->
 </head>
 
 <body>
