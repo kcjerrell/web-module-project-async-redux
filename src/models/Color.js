@@ -107,6 +107,8 @@ function formatHex(hex, alpha = false) {
   // #99FF9     - 20bit ?????
   // #7777777   - 28bit ???????
 
+  // It happened. Just received '52080'. we're just gonna assume leading zeroes were trimmed
+
   const digits = hex.match(/^#?([0-9a-fA-F]+)$/)?.[1];
 
   if (!digits) { debugger; throw new Error("Invalid color hex string!"); }
@@ -114,6 +116,9 @@ function formatHex(hex, alpha = false) {
   switch (digits.length) {
     case 6:
       return `#${digits}`.toUpperCase();
+
+    case 5:
+      return ['#', '0', digits].join('').toUpperCase();
 
     case 3:
       const [r, g, b] = digits;

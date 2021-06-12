@@ -15,7 +15,7 @@ const LoadingIndicator = styled.div`
   padding: 2em;
 `;
 
-const SchemeListContainer = styled.div`
+export const SchemeListContainer = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

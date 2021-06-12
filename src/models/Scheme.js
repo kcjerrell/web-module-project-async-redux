@@ -36,17 +36,27 @@ import Tag from "./Tag";
 
 export default class Scheme {
 	constructor(jsonData) {
+		// colr has a 'timestamp' prop, colourlovers does not
+		const colr = jsonData.hasOwnProperty('timestamp');
+
 		/** @type {number} identifies the scheme in the colr.org api */
 		this.id = jsonData.id;
 
 		/** @type {Color[]} a list of the scheme's colors */
 		this.colors = jsonData.colors.map(color => new Color(color));
 
-		/** @type {Tag[]} a list of tags describing the scheme*/
-		this.tags = jsonData.tags.map(tag => new Tag(tag));
+		if (colr) {
+			/** @type {Tag[]} a list of tags describing the scheme*/
+			this.tags = jsonData.tags.map(tag => new Tag(tag));
 
-		/** @type {string} a 'name' for the scheme composed of it's tags */
-		this.name = concatTagNames(this.tags);
+			/** @type {string} a 'name' for the scheme composed of it's tags */
+			this.name = concatTagNames(this.tags);
+		}
+
+		else {
+			this.tags = [];
+			this.name = jsonData.title;
+		}
 	}
 
 }
