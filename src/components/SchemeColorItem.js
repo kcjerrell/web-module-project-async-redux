@@ -19,6 +19,7 @@ const SchemeColorItem = props => {
 	const style = {
 		backgroundColor: color.hex,
 		color: color.onColor,
+		// borderColor: props.borderColor,
 		// borderTop: `15px solid ${color.highShade}`,
 		// borderBottom: `15px solid ${color.lowShade}`,
 		zIndex: 0

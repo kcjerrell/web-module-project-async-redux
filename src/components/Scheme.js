@@ -63,8 +63,9 @@ const ItemScheme = styled.div`
 		display: flex;
 		flex-direction: row;
 		align-items: stretch;
-
 		flex-grow: 1;
+		border-style: solid;
+		border-width: 0px;
 
 		.item-scheme-color {
 			flex-grow: 1;
@@ -88,6 +89,10 @@ const ItemScheme = styled.div`
 				display: block;
 			}
 		}
+
+		&:hover {
+			border-width: 10px 0;
+		}
 	}
 `;
 
@@ -101,14 +106,12 @@ const ItemScheme = styled.div`
 const Scheme = props => {
 	const { scheme, mode } = props;
 	const { colors } = scheme;
-
+	// const [colorHovered, setColorHovered] = useState(colors[0]);
 	// const [state, setState] = useState({ a: 0, b: 0 });
+	//const [isLabelOnRight, setIsLabelOnRight] = useState(true);
+	//const labelColor = isLabelOnRight ? colors[0] : colors[colors.length - 1];
 
-	const [isLabelOnRight, setIsLabelOnRight] = useState(true);
-	const labelColor = isLabelOnRight ? colors[0] : colors[colors.length - 1];
-
-	if (!labelColor)
-		debugger;
+	const [labelOptions, setLabelOptions] = useState({ isOnRight: true, color: colors[0] });
 
 	const isBackground = mode === "background";
 	const Container = isBackground ? BgScheme : ItemScheme;
@@ -117,24 +120,23 @@ const Scheme = props => {
 	const childHover = i => {
 		const handleMouseEnter = e => {
 			const onRight = i <= colors.length / 2;
-			if (isLabelOnRight !== onRight)
-				setIsLabelOnRight(onRight);
+			if (labelOptions.isOnRight !== onRight || labelOptions.color !== colors[i])
+				setLabelOptions({ isOnRight: onRight, color: colors[i] });
 		}
-
 		return handleMouseEnter;
 	};
 
-	const colorDivs = colors.map((col, i) => <SchemeColorItem color={col} key={i} className={childClass} onMouseEnter={childHover(i)} />);
+	const colorDivs = colors.map((col, i) => <SchemeColorItem color={col} key={i} className={childClass} onMouseEnter={childHover(i)} borderColor={labelOptions.color.hex} />);
 
 	// I keep going back on forth on whether I should use inline styles or inject into the styled componenets
 	// the former makes the most sense though, because otherwise it makes a new css class for every single color
 
 	const labelStyle = {
-		backgroundColor: labelColor.hex,
-		color: labelColor.onColor,
-		right: isLabelOnRight ? 0 : "unset",
-		left: isLabelOnRight ? "unset" : 0,
-		textShadow: `2px 0px 10px ${labelColor.onColor === '#FFFFFF' ? '#00000088' : '#FFFFFF88'}`,
+		backgroundColor: labelOptions.color.hex,
+		color: labelOptions.color.onColor,
+		right: labelOptions.isOnRight ? 0 : "unset",
+		left: labelOptions.isOnRight ? "unset" : 0,
+		textShadow: `2px 0px 10px ${labelOptions.color.onColor === '#FFFFFF' ? '#00000088' : '#FFFFFF88'}`,
 	};
 
 	const handleKeyDown = e => {
@@ -160,7 +162,7 @@ const Scheme = props => {
 
 			{!isBackground &&
 				<Container onMouseDown={handleKeyDown} a={0} b={0}>
-					<div className="color-container">
+					<div className="color-container" style={{borderColor: labelOptions.color.hex}}>
 						{colorDivs}
 					</div>
 					<span className="label" style={labelStyle}>
